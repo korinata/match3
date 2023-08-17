@@ -300,9 +300,17 @@ void SelectBlock(void)
 		{
 			Select[NEXT_CURSOR].x = Select[SELECT_CURSOR].x;
 			Select[NEXT_CURSOR].y = Select[SELECT_CURSOR].y;
-			ClickStatus = E_NONE;
+			ClickStatus = E_ONCE;
 		}
-		else if (ClickStatus == E_ONCE && ((abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x) == 1 && (abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) == 0)) || (abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x) == 0 && abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) == 1)))
+		else if (ClickStatus == E_ONCE && 
+			((abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x) 
+		== 1 && 
+			(abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y)
+		== 0)) || 
+			(abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x) 
+		== 0 && 
+			abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) == 
+		1)))
 		{
 			Select[TMP_CURSOR].x = Select[SELECT_CURSOR].x;
 			Select[TMP_CURSOR].y = Select[SELECT_CURSOR].y;
@@ -365,7 +373,7 @@ void FadeOutBlock(void)
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_ALPHA, BlendMode);
 	for (i = 1; i < HEIGHT - 1; i++)
 	{
-		for (j = 0; j < WIDTH - 1; j++)
+		for (j = 1; j < WIDTH - 1; j++)
 		{
 			if (Block[i][j].image == 0)
 			{
@@ -404,11 +412,11 @@ void MoveBlock(void)
 	//↓へ移動する処理
 	for (i = 1; i < HEIGHT - 1; i++)
 	{
-		for (j = 0; j < WIDTH - 1; j++)
+		for (j = 1; j < WIDTH - 1; j++)
 		{
 			if (Block[i][j].image == 0)
 			{
-				for (k = i; k > 0; k--);
+				for (k = i; k > 0; k--)
 				{
 					Block[k][j].image = Block[k - 1][j].image;
 					Block[k - 1][j].image = 0;
@@ -418,9 +426,9 @@ void MoveBlock(void)
 	}
 
 	//空のブロックを生成する処理
-	for (i = 0; i < HEIGHT - 1; i++)
+	for (i = 1; i < HEIGHT - 1; i++)
 	{
-		for (j = 0; j < WIDTH - 1; j++)
+		for (j = 1; j < WIDTH - 1; j++)
 		{
 			if (Block[i][j].image == 0)
 			{
@@ -449,7 +457,7 @@ void CheckBlock(void)
 	//ブロック連鎖チェック
 	for (i = 1; i < HEIGHT - 1; i++)
 	{
-		for (j = 0; j < WIDTH - 1; j++)
+		for (j = 1; j < WIDTH - 1; j++)
 		{
 			Result += combo_check(i, j);
 		}
