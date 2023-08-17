@@ -242,7 +242,7 @@ void CreateBlock(void)
 		//ブロック連鎖チェック
 		for (i = 1; i < HEIGHT-1; i++)
 		{
-			for (j = 0; j < WIDTH - 1; j++)
+			for (j = 1; j < WIDTH - 1; j++)
 			{
 				Check += combo_check(i, j);
 			}
