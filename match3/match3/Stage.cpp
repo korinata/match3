@@ -240,7 +240,7 @@ void CreateBlock(void)
 			}
 		}*/
 		//ブロック連鎖チェック
-		for (i = 1; i < HEIGHT-1; i++)
+		for (i = 1; i < HEIGHT - 1; i++)
 		{
 			for (j = 1; j < WIDTH - 1; j++)
 			{
@@ -302,15 +302,15 @@ void SelectBlock(void)
 			Select[NEXT_CURSOR].y = Select[SELECT_CURSOR].y;
 			ClickStatus = E_ONCE;
 		}
-		else if (ClickStatus == E_ONCE && 
-			((abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x) 
-		== 1 && 
-			(abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y)
-		== 0)) || 
-			(abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x) 
-		== 0 && 
-			abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) == 
-		1)))
+		else if (ClickStatus == E_ONCE &&
+			((abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x)
+				== 1 &&
+				(abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y)
+					== 0)) ||
+				(abs(Select[NEXT_CURSOR].x - Select[SELECT_CURSOR].x)
+					== 0 &&
+					abs(Select[NEXT_CURSOR].y - Select[SELECT_CURSOR].y) ==
+					1)))
 		{
 			Select[TMP_CURSOR].x = Select[SELECT_CURSOR].x;
 			Select[TMP_CURSOR].y = Select[SELECT_CURSOR].y;
@@ -323,30 +323,7 @@ void SelectBlock(void)
 	{
 		TmpBlock = Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image;
 		Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image = Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image;
-		Block[Select[TMP_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image = TmpBlock;
 
-		//連鎖が３つ以上か調べる
-		Result = 0;
-		Result += combo_check(Select[NEXT_CURSOR].y + 1, Select[NEXT_CURSOR].x + 1);
-		Result += combo_check(Select[TMP_CURSOR].y + 1, Select[TMP_CURSOR].x + 1);
-
-		//連鎖が３未満なら選択ブロックを元に戻す
-		if (Result == 0)
-		{
-
-			int TmpBlock = Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image;
-			Block[Select[NEXT_CURSOR].y + 1][Select[NEXT_CURSOR].x + 1].image = Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image;
-			Block[Select[TMP_CURSOR].y + 1][Select[TMP_CURSOR].x + 1].image = TmpBlock;
-		}
-		else
-		{
-
-			//連鎖が３つ以上ならブロックを消しブロック移動処理へ移行する
-			Stage_State = 1;
-		}
-
-		//次にクリックできるようにClockFlagを0にする
-		ClickStatus = E_NONE;
 	}
 }
 
